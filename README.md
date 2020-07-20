@@ -13,14 +13,23 @@ gem 'solidus_klaviyo'
 
 Bundle your dependencies and run the installation generator:
 
-```shell
-bundle
-bundle exec rails g solidus_klaviyo:install
+```console
+$ bundle
+$ bundle exec rails g solidus_klaviyo:install
 ```
+
+The generator will create an initializer at `config/initializers/solidus_klaviyo.rb` with the
+default configuration. Take a look at the file and customize it to fit your environment.
 
 ## Usage
 
-[Explain how to use your extension once it's been installed.]
+The extension will send the following events to Klaviyo:
+
+- `Started Checkout`: when an order transitions from the `cart` state to `address`.
+- `Placed Order`: when an order is finalized.
+- `Ordered Product`: for each item in a finalized order.
+
+For the full payload of these events, look at the source code of the serializers and events.
 
 ## Development
 
