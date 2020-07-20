@@ -1,6 +1,7 @@
-# SolidusKlaviyo
+# solidus_klaviyo
 
-[Explain what your extension does.] 
+This extension allows you to integrate your [Solidus](https://solidus.io) store with
+[Klaviyo](https://klaviyo.com).
 
 ## Installation
 
@@ -73,4 +74,4 @@ bundle exec gem bump -v VERSION --tag --push --remote upstream && gem release
 
 ## License
 
-Copyright (c) 2020 [name of extension author], released under the New BSD License.
+Copyright (c) 2020 Nebulab Srls, released under the New BSD License.
