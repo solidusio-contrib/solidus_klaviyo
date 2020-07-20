@@ -1,2 +1,6 @@
 require:
   - solidus_dev_support/rubocop
+
+RSpec/DescribeClass:
+  Exclude:
+    - spec/integration/**/*
