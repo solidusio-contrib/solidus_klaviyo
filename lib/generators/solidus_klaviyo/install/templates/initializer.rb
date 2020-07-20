@@ -11,6 +11,7 @@ SolidusKlaviyo.configure do |config|
 
   # A proc that accepts a variant and returns the URL of that variant's main image.
   config.image_url_builder = proc do |variant|
-    (variant.images.first || variant.product.images.first)&.attachment&.url(:product)
+    image = variant.gallery.images.first
+    image.attachment.url(:product) if image
   end
 end
