@@ -8,14 +8,13 @@ Gem::Specification.new do |spec|
   spec.authors = ['Alessandro Desantis']
   spec.email = 'desa.alessandro@gmail.com'
 
-  spec.summary = 'TODO: Write a short summary, because RubyGems requires one.'
-  spec.description = 'TODO: Write a longer description or delete this line.'
-  spec.homepage = 'https://github.com/[USERNAME]/solidus_klaviyo'
+  spec.summary = 'Klaviyo integration for Solidus stores.'
+  spec.homepage = 'https://github.com/nebulab/solidus_klaviyo'
   spec.license = 'BSD-3-Clause'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/[USERNAME]/solidus_klaviyo'
-  spec.metadata['changelog_uri'] = 'https://github.com/[USERNAME]/solidus_klaviyo/releases'
+  spec.metadata['source_code_uri'] = 'https://github.com/nebulab/solidus_klaviyo'
+  spec.metadata['changelog_uri'] = 'https://github.com/nebulab/solidus_klaviyo/releases'
 
   spec.required_ruby_version = Gem::Requirement.new('~> 2.5')
 
