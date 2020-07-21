@@ -9,6 +9,7 @@ module SolidusKlaviyo
         'ordered_product' => SolidusKlaviyo::Event::OrderedProduct,
         'placed_order' => SolidusKlaviyo::Event::PlacedOrder,
         'started_checkout' => SolidusKlaviyo::Event::StartedCheckout,
+        'cancelled_order' => SolidusKlaviyo::Event::CancelledOrder,
       }
     end
   end

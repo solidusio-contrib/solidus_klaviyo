@@ -28,6 +28,7 @@ The extension will send the following events to Klaviyo:
 - `Started Checkout`: when an order transitions from the `cart` state to `address`.
 - `Placed Order`: when an order is finalized.
 - `Ordered Product`: for each item in a finalized order.
+- `Cancelled Order`: when an order is cancelled.
 
 For the full payload of these events, look at the source code of the serializers and events.
 
