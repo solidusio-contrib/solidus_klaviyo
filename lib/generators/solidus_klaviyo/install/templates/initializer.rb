@@ -14,4 +14,8 @@ SolidusKlaviyo.configure do |config|
     image = variant.gallery.images.first
     image.attachment.url(:product) if image
   end
+
+  # You can register custom events or override the defaults by manipulating the `events` hash.
+  # config.events['my_custom_event'] = MyApp::KlaviyoEvents::MyCustomEvent
+  # config.events['placed_order'] = MyApp::KlaviyoEvents::PlacedOrder
 end

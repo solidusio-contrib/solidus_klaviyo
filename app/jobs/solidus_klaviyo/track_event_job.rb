@@ -4,9 +4,12 @@ module SolidusKlaviyo
   class TrackEventJob < ApplicationJob
     queue_as :default
 
-    def perform(event_class, event_payload = {})
+    def perform(event_name, event_payload = {})
+      event_class = SolidusKlaviyo.configuration.events[event_name]
+      raise ArgumentError, "#{event_name} is not a registered Klaviyo event" unless event_class
+
       event_tracker = SolidusKlaviyo::EventTracker.new
-      event = "SolidusKlaviyo::Event::#{event_class.camelize}".constantize.new(event_payload)
+      event = event_class.new(event_payload)
 
       event_tracker.track(event)
     end

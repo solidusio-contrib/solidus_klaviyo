@@ -31,6 +31,65 @@ The extension will send the following events to Klaviyo:
 
 For the full payload of these events, look at the source code of the serializers and events.
 
+### Implementing custom events
+
+If you have custom events you want to track with this gem, you can easily do so by creating a new
+event class and implementing the required methods:
+
+```ruby
+module MyApp
+  module KlaviyoEvents
+    class SignedUp < SolidusKlaviyo::Event::Base
+      def name
+        'Signed Up'
+      end
+
+      def email
+        user.email
+      end
+
+      def customer_properties
+        Serializer::Customer.serialize(user)
+      end
+
+      def properties
+        Serializer::LineItem.serialize(user).merge(
+          '$event_id' => user.id.to_s,
+        )
+      end
+
+      def time
+        user.created_at
+      end
+
+      private
+
+      def user
+        payload.fetch(:user)
+      end
+    end 
+  end 
+end
+```
+
+Once you have created the class, the next step is to register your custom event when initializing
+the extension:
+
+```ruby
+# config/initializers/solidus_klaviyo.rb
+SolidusKlaviyo.configure do |config|
+  config.events['signed_up'] = MyApp::KlaviyoEvents::SignedUp
+end
+```
+
+Your custom event is now properly configured! You can track it by enqueuing the `TrackEventJob`:
+
+```ruby
+SolidusKlaviyo::TrackEventJob.perform_later('signed_up', user: user)
+```
+
+*NOTE:* You can follow the same exact pattern to override the built-in events.
+
 ## Development
 
 ### Testing the extension
