@@ -53,9 +53,10 @@ module MyApp
       end
 
       def properties
-        Serializer::LineItem.serialize(user).merge(
+        {
           '$event_id' => user.id.to_s,
-        )
+          '...' => '...',
+        }
       end
 
       def time
