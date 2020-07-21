@@ -13,11 +13,13 @@ require 'solidus_klaviyo/serializer/address'
 require 'solidus_klaviyo/serializer/order'
 require 'solidus_klaviyo/serializer/line_item'
 require 'solidus_klaviyo/serializer/customer'
+require 'solidus_klaviyo/serializer/user'
 require 'solidus_klaviyo/event/base'
 require 'solidus_klaviyo/event/ordered_product'
 require 'solidus_klaviyo/event/placed_order'
 require 'solidus_klaviyo/event/started_checkout'
 require 'solidus_klaviyo/event/cancelled_order'
+require 'solidus_klaviyo/event/reset_password'
 
 module SolidusKlaviyo
   class << self

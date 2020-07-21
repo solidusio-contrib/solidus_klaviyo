@@ -29,6 +29,7 @@ The extension will send the following events to Klaviyo:
 - `Placed Order`: when an order is finalized.
 - `Ordered Product`: for each item in a finalized order.
 - `Cancelled Order`: when an order is cancelled.
+- `Reset Password`: when a user requests a password reset.
 
 For the full payload of these events, look at the source code of the serializers and events.
 
