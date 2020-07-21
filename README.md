@@ -28,6 +28,9 @@ The extension will send the following events to Klaviyo:
 - `Started Checkout`: when an order transitions from the `cart` state to `address`.
 - `Placed Order`: when an order is finalized.
 - `Ordered Product`: for each item in a finalized order.
+- `Cancelled Order`: when an order is cancelled.
+- `Created Account`: when a user is created.
+- `Reset Password`: when a user requests a password reset.
 
 For the full payload of these events, look at the source code of the serializers and events.
 
@@ -39,9 +42,9 @@ event class and implementing the required methods:
 ```ruby
 module MyApp
   module KlaviyoEvents
-    class SignedUp < SolidusKlaviyo::Event::Base
+    class SubscribedToNewsletter < SolidusKlaviyo::Event::Base
       def name
-        'Signed Up'
+        'SubscribedToNewsletter'
       end
 
       def email
@@ -60,7 +63,7 @@ module MyApp
       end
 
       def time
-        user.created_at
+        Time.zone.now
       end
 
       private
@@ -79,7 +82,7 @@ the extension:
 ```ruby
 # config/initializers/solidus_klaviyo.rb
 SolidusKlaviyo.configure do |config|
-  config.events['signed_up'] = MyApp::KlaviyoEvents::SignedUp
+  config.events['subscribed_to_newsletter'] = MyApp::KlaviyoEvents::SubscribedToNewsletter
 end
 ```
 

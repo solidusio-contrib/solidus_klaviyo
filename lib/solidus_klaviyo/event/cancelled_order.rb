@@ -2,9 +2,9 @@
 
 module SolidusKlaviyo
   module Event
-    class StartedCheckout < Base
+    class CancelledOrder < Base
       def name
-        'Started Checkout'
+        'Cancelled Order'
       end
 
       delegate :email, to: :order
@@ -21,7 +21,7 @@ module SolidusKlaviyo
       end
 
       def time
-        order.updated_at
+        order.canceled_at
       end
 
       private

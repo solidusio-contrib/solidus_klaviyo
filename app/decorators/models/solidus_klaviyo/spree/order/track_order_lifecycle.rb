@@ -8,6 +8,7 @@ module SolidusKlaviyo
           base.state_machine.after_transition to: :address, do: :track_started_checkout
           base.state_machine.after_transition to: :complete, do: :track_ordered_product
           base.state_machine.after_transition to: :complete, do: :track_placed_order
+          base.state_machine.after_transition to: :canceled, do: :track_cancelled_order
         end
 
         private
@@ -24,6 +25,10 @@ module SolidusKlaviyo
 
         def track_placed_order
           SolidusKlaviyo::TrackEventJob.perform_later('placed_order', order: self)
+        end
+
+        def track_cancelled_order
+          SolidusKlaviyo::TrackEventJob.perform_later('cancelled_order', order: self)
         end
       end
     end

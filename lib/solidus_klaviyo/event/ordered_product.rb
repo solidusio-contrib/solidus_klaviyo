@@ -12,7 +12,7 @@ module SolidusKlaviyo
       end
 
       def customer_properties
-        Serializer::Customer.serialize(line_item.order)
+        Serializer::CustomerProperties.serialize(line_item.order.user || line_item.order.email)
       end
 
       def properties

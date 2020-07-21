@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe SolidusKlaviyo::Event::PlacedOrder do
+RSpec.describe SolidusKlaviyo::Event::CancelledOrder do
   describe '#name' do
     it 'returns the name of the event' do
       order = build_stubbed(:order)
 
       event = described_class.new(order: order)
 
-      expect(event.name).to eq('Placed Order')
+      expect(event.name).to eq('Cancelled Order')
     end
   end
 
@@ -64,12 +64,12 @@ RSpec.describe SolidusKlaviyo::Event::PlacedOrder do
   end
 
   describe '#time' do
-    it "returns the order's completion time" do
-      order = build_stubbed(:order)
+    it "returns the order's cancellation time" do
+      order = build_stubbed(:order, canceled_at: Time.zone.now)
 
       event = described_class.new(order: order)
 
-      expect(event.time).to eq(order.completed_at)
+      expect(event.time).to eq(order.canceled_at)
     end
   end
 end
