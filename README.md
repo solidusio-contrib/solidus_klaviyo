@@ -49,7 +49,7 @@ module MyApp
       end
 
       def customer_properties
-        Serializer::Customer.serialize(user)
+        SolidusKlaviyo::Serializer::Customer.serialize(user)
       end
 
       def properties
