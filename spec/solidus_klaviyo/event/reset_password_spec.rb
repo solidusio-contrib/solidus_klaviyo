@@ -22,26 +22,17 @@ RSpec.describe SolidusKlaviyo::Event::ResetPassword do
   end
 
   describe '#customer_properties' do
-    it 'returns the serialized user information' do
+    it 'returns the serialized customer information' do
       user = build_stubbed(:user)
-      allow(SolidusKlaviyo::Serializer::User).to receive(:serialize)
+      allow(SolidusKlaviyo::Serializer::CustomerProperties).to receive(:serialize)
         .with(user)
-        .and_return('Full Name' => 'John Doe')
+        .and_return('$email' => 'jdoe@example.com')
 
       event = described_class.new(user: user)
 
-      expect(event.customer_properties).to include('Full Name' => 'John Doe')
-    end
-
-    it "uses the user's email for identification" do
-      user = build_stubbed(:user)
-      allow(SolidusKlaviyo::Serializer::User).to receive(:serialize)
-        .with(user)
-        .and_return('Full Name' => 'John Doe')
-
-      event = described_class.new(user: user)
-
-      expect(event.customer_properties).to include('$email' => user.email)
+      expect(event.customer_properties).to eq(
+        '$email' => 'jdoe@example.com',
+      )
     end
   end
 

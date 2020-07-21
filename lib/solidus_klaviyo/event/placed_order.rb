@@ -10,7 +10,7 @@ module SolidusKlaviyo
       delegate :email, to: :order
 
       def customer_properties
-        Serializer::Customer.serialize(order)
+        Serializer::CustomerProperties.serialize(order.user || order.email)
       end
 
       def properties

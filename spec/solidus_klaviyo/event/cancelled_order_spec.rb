@@ -24,13 +24,15 @@ RSpec.describe SolidusKlaviyo::Event::CancelledOrder do
   describe '#customer_properties' do
     it 'returns the serialized customer information' do
       order = build_stubbed(:order)
-      allow(SolidusKlaviyo::Serializer::Customer).to receive(:serialize)
-        .with(order)
+      allow(SolidusKlaviyo::Serializer::CustomerProperties).to receive(:serialize)
+        .with(order.user)
         .and_return('$email' => 'jdoe@example.com')
 
       event = described_class.new(order: order)
 
-      expect(event.customer_properties).to eq('$email' => 'jdoe@example.com')
+      expect(event.customer_properties).to eq(
+        '$email' => 'jdoe@example.com',
+      )
     end
   end
 

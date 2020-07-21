@@ -10,7 +10,7 @@ module SolidusKlaviyo
       delegate :email, to: :user
 
       def customer_properties
-        Serializer::User.serialize(user).merge('$email' => user.email)
+        Serializer::CustomerProperties.serialize(user)
       end
 
       def properties

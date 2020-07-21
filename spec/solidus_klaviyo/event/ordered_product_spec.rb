@@ -24,13 +24,15 @@ RSpec.describe SolidusKlaviyo::Event::OrderedProduct do
   describe '#customer_properties' do
     it 'returns the serialized customer information' do
       line_item = build_stubbed(:line_item)
-      allow(SolidusKlaviyo::Serializer::Customer).to receive(:serialize)
-        .with(line_item.order)
+      allow(SolidusKlaviyo::Serializer::CustomerProperties).to receive(:serialize)
+        .with(line_item.order.user)
         .and_return('$email' => 'jdoe@example.com')
 
       event = described_class.new(line_item: line_item)
 
-      expect(event.customer_properties).to eq('$email' => 'jdoe@example.com')
+      expect(event.customer_properties).to eq(
+        '$email' => 'jdoe@example.com',
+      )
     end
   end
 
