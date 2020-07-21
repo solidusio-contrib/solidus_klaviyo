@@ -11,6 +11,7 @@ module SolidusKlaviyo
         'started_checkout' => SolidusKlaviyo::Event::StartedCheckout,
         'cancelled_order' => SolidusKlaviyo::Event::CancelledOrder,
         'reset_password' => SolidusKlaviyo::Event::ResetPassword,
+        'created_account' => SolidusKlaviyo::Event::CreatedAccount,
       }
     end
   end

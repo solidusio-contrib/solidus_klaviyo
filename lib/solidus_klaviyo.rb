@@ -20,6 +20,7 @@ require 'solidus_klaviyo/event/placed_order'
 require 'solidus_klaviyo/event/started_checkout'
 require 'solidus_klaviyo/event/cancelled_order'
 require 'solidus_klaviyo/event/reset_password'
+require 'solidus_klaviyo/event/created_account'
 
 module SolidusKlaviyo
   class << self
