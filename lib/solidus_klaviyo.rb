@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'httparty'
 require 'klaviyo'
 require 'solidus_core'
 require 'solidus_support'
@@ -21,6 +22,7 @@ require 'solidus_klaviyo/event/started_checkout'
 require 'solidus_klaviyo/event/cancelled_order'
 require 'solidus_klaviyo/event/reset_password'
 require 'solidus_klaviyo/event/created_account'
+require 'solidus_klaviyo/subscriber'
 
 module SolidusKlaviyo
   class << self
