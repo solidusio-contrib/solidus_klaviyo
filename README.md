@@ -42,6 +42,22 @@ web workers and slowing down the customer:
 SolidusKlaviyo::SubscribeJob.perform_later('YOUR_LIST_ID', 'jdoe@example.com')
 ```
 
+#### Subscribing all users upon signup
+
+If you want to subscribe all users when they sign up, you can just set the `default_list`
+configuration option:
+
+```ruby
+# config/initializers/solidus_klaviyo.rb
+SolidusKlaviyo.configure do |config|
+  # ...
+  config.default_list = 'klaviyoListId'
+end
+``` 
+
+Now, all users will be subscribed to the configured list automatically when their account is
+created.
+
 ### Tracking events
 
 The extension will send the following events to Klaviyo:

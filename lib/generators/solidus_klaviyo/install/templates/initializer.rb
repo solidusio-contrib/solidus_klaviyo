@@ -15,6 +15,9 @@ SolidusKlaviyo.configure do |config|
     image&.attachment&.url(:product)
   end
 
+  # A Klaviyo list that all users will be subscribed to when they sign up.
+  # config.default_list = 'KLAVIYO_LIST_ID'
+
   # You can register custom events or override the defaults by manipulating the `events` hash.
   # config.events['my_custom_event'] = MyApp::KlaviyoEvents::MyCustomEvent
   # config.events['placed_order'] = MyApp::KlaviyoEvents::PlacedOrder
