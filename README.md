@@ -25,6 +25,41 @@ default configuration. Take a look at the file and customize it to fit your envi
 
 ## Usage
 
+### Subscribing users to lists
+
+If you want to subscribe a user to a Klaviyo list, the extension provides a handy Ruby API to do
+that:
+
+```ruby
+subscriber = SolidusKlaviyo::Subscriber.new('YOUR_LIST_ID')
+subscriber.subscribe('jdoe@example.com') # => true or raises SolidusKlaviyo::Subscriber::SubscriptionError 
+```
+
+We recommend using the built-in background job to subscribe users, in order to avoid blocking your
+web workers and slowing down the customer:
+
+```ruby
+SolidusKlaviyo::SubscribeJob.perform_later('YOUR_LIST_ID', 'jdoe@example.com')
+```
+
+#### Subscribing all users upon signup
+
+If you want to subscribe all users when they sign up, you can just set the `default_list`
+configuration option:
+
+```ruby
+# config/initializers/solidus_klaviyo.rb
+SolidusKlaviyo.configure do |config|
+  # ...
+  config.default_list = 'klaviyoListId'
+end
+``` 
+
+Now, all users will be subscribed to the configured list automatically when their account is
+created.
+
+### Tracking events
+
 The extension will send the following events to Klaviyo:
 
 - `Started Checkout`: when an order transitions from the `cart` state to `address`.
@@ -36,7 +71,7 @@ The extension will send the following events to Klaviyo:
 
 For the full payload of these events, look at the source code of the serializers and events.
 
-### Implementing custom events
+#### Implementing custom events
 
 If you have custom events you want to track with this gem, you can easily do so by creating a new
 event class and implementing the required methods:

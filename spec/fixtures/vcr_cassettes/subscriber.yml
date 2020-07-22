@@ -1,0 +1,123 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://a.klaviyo.com/api/v2/list/dummyListId/subscribe
+    body:
+      encoding: UTF-8
+      string: '{"api_key":"secret123","profiles":[{"email":"jdoe@example.com"}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 22 Jul 2020 13:40:48 GMT
+      Server:
+      - nginx
+      Vary:
+      - Accept-Encoding
+      - Cookie
+      X-Upstream:
+      - Sync-Api
+      - Sync-Api
+      Content-Length:
+      - '22'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: "[]"
+  recorded_at: Wed, 22 Jul 2020 13:40:48 GMT
+- request:
+    method: post
+    uri: https://a.klaviyo.com/api/v2/list/wrongListId/subscribe
+    body:
+      encoding: UTF-8
+      string: '{"api_key":"secret123","profiles":[{"email":"jdoe@example.com"}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Wed, 22 Jul 2020 13:43:16 GMT
+      Server:
+      - nginx
+      Vary:
+      - Accept-Encoding
+      - Cookie
+      Content-Length:
+      - '1447'
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"Content-Type\"
+        content=\"text/html; charset=utf-8\" />\n\n<title>Oops (Error 404) - Klaviyo</title>\n<link
+        rel=\"shortcut icon\" href=\"/media/Favicon-16by16.png\" />\n<style type=\"text/css\">\n
+        \ body {\n    font-family: 'Lucida Grande', sans-serif;\n    line-height:
+        18pt;\n  }\n\n  h1 {\n    color: #7895a3;\n    font-size: 32pt;\n    font-weight:
+        bold;\n    line-height: 34pt;\n  }\n\n  h2 {\n    font-size: 30px;\n    line-height:
+        1.4;\n  }\n\n  h3 {\n    color: #555;\n    font-size: 20px;\n    line-height:
+        1.4;\n    font-weight: normal;\n  }\n\n  #main {\n     margin: 4em 10em 3em
+        3em;\n  }\n\n  .bear {\n    position: absolute;\n    position: fixed;\n    bottom:
+        3em;\n    right: 3em;\n  }\n  \n  body { \n    padding: 60px 0 60px;\n    width:
+        550px;\n    margin: 0 auto;\n    text-align: center;\n  }\n\n  #logo-link
+        {\n    background: url(/media/images/newsite_public/logo-1.png);\n    display:
+        block;\n    height: 81px;\n    width: 349px;\n    text-indent: -9999em;\n
+        \   margin: 0 auto;\n  }\n\n  #success { \n    background-color :#fafafc;\n
+        \   font-size: 1.2em;\n    margin-bottom: 50px;\n    padding: 5px 10px;\n
+        \ }\n  \n  h1.logo,\n  h2.logo { \n    display: none;\n  }\n  \n  p {\n    margin-bottom:
+        1em;\n    text-align: left;\n    font-size: 14px;\n  }\n\n  .footer_links
+        {\n    margin-top: 50px;\n    text-align: center;\n    font-size: 18px;\n
+        \ }\n  \n  a:link, a:visited {\n    color:#18587c;\n  }\n  \n  #brought{\n
+        \   margin-top: 60px;\n    font-size: 70%;\n  }\n  \n  #output{\n    color:
+        #FFF;\n  }\n  \n  ol { \n    text-align: left;\n    font-size: 14px;\n  }\n
+        \ \n  li { \n    margin-left: 10px;\n  }\n</style>\n\n</head>\n\n<body>\n
+        \ \n    <script type=\"text/javascript\">\n\n      var _gaq = _gaq || [];\n
+        \     _gaq.push(['_setAccount', 'UA-30451006-1']);\n      _gaq.push(['_setDomainName',
+        'klaviyo.com']);\n      _gaq.push(['_trackPageview']);\n\n      (function
+        () {\n        var ga = document.createElement('script'); ga.type = 'text/javascript';
+        ga.async = true;\n        ga.src = ('https:' == document.location.protocol
+        ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';\n        var
+        s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga,
+        s);\n      })();\n\n    </script>\n  \n\n\t<div id=\"logo\">\n\t  <h1 class=\"logo\">Klaviyo.com</h1>\n\t
+        \ <h2 class=\"logo\">Klaviyo is an email platform powered by data built for
+        ecommerce and web businesses.</h2>\n\t</div>\n  <a id=\"logo-link\" title=\"Klaviyo\"
+        alt=\"Klaviyo\" href=\"/dashboard\">Klaviyo.com</a>\n\n  \n\n  <h2>Sorry,
+        that page isn't actually here.</h2>\n\n  <p>The address you asked for didn't
+        work for some reason. Here are some possible reasons why:</p>\n  <ol>\n    <li>We
+        have a bad link and you were unlucky enough to click it.</li>\n    <li>You
+        may have typed the page address incorrectly.</li>\n    <li>This web server
+        is bonkers right now.</li>\n  </ol>\n\n\n\n  <p class=\"footer_links\">\n
+        \   <a href=\"#\" onclick=\"window.history.go(-1);return false;\">Go Back
+        to Last Page</a> |\n    <a href=\"https://www.klaviyo.com/\">Home</a> |\n
+        \   <a href=\"http://help.klaviyo.com\">Support</a> |\n    <a href=\"https://www.twitter.com/klaviyo\">@klaviyo</a>\n
+        \ </p>\n</body>\n</html>\n"
+  recorded_at: Wed, 22 Jul 2020 13:43:16 GMT
+recorded_with: VCR 6.0.0
