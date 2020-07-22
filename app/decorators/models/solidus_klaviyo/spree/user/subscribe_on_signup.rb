@@ -16,6 +16,7 @@ module SolidusKlaviyo
           SolidusKlaviyo::SubscribeJob.perform_later(
             SolidusKlaviyo.configuration.default_list,
             email,
+            SolidusKlaviyo::Serializer::User.serialize(self),
           )
         end
       end
