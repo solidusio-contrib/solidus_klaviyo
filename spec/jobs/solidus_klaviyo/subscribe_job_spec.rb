@@ -7,8 +7,9 @@ RSpec.describe SolidusKlaviyo::SubscribeJob do
     allow(SolidusKlaviyo::Subscriber).to receive(:new).with(list_id).and_return(subscriber)
 
     email = 'jdoe@example.com'
-    described_class.perform_now(list_id, email)
+    properties = { 'first_name' => 'John' }
+    described_class.perform_now(list_id, email, properties)
 
-    expect(subscriber).to have_received(:subscribe).with(email)
+    expect(subscriber).to have_received(:subscribe).with(email, properties)
   end
 end

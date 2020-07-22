@@ -10,12 +10,12 @@ module SolidusKlaviyo
       @list_id = list_id
     end
 
-    def subscribe(email)
+    def subscribe(email, properties = {})
       response = HTTParty.post(
         "https://a.klaviyo.com/api/v2/list/#{list_id}/subscribe",
         body: {
           api_key: SolidusKlaviyo.configuration.api_key,
-          profiles: ['email' => email],
+          profiles: [properties.merge('email' => email)],
         }.to_json,
         headers: {
           'Content-Type' => 'application/json',
