@@ -35,8 +35,12 @@ subscriber = SolidusKlaviyo::Subscriber.new('YOUR_LIST_ID')
 subscriber.subscribe('jdoe@example.com') # => true or raises SolidusKlaviyo::Subscriber::SubscriptionError 
 ```
 
-We recommend using a background job to subscribe users in order to avoid blocking your web workers
-and slowing down the customer.
+We recommend using the built-in background job to subscribe users, in order to avoid blocking your
+web workers and slowing down the customer:
+
+```ruby
+SolidusKlaviyo::SubscribeJob.perform_later('YOUR_LIST_ID', 'jdoe@example.com')
+```
 
 ### Tracking events
 
