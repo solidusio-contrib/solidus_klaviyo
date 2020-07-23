@@ -38,6 +38,10 @@ SolidusKlaviyo.configure do |config|
     )
   end
 
+  # Disable the built-in emails for the provided Klaviyo events?
+  # This is useful if you'll send the transactional emails via Klaviyo flows instead.
+  config.disable_builtin_emails = false
+
   # A Klaviyo list that all users will be subscribed to when they sign up.
   # config.default_list = 'KLAVIYO_LIST_ID'
 
