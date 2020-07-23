@@ -40,6 +40,28 @@ RSpec.describe Spree::Order do
         )
       end
     end
+
+    context 'when disable_builtin_emails is true' do
+      it 'does not send the confirmation email' do
+        allow(SolidusKlaviyo.configuration).to receive(:disable_builtin_emails).and_return(true)
+        order = Spree::TestingSupport::OrderWalkthrough.up_to(:payment)
+
+        expect {
+          order.complete!
+        }.not_to have_enqueued_email(Spree::OrderMailer, 'confirm_email')
+      end
+    end
+
+    context 'when disable_builtin_emails is false' do
+      it 'sends the confirmation email' do
+        allow(SolidusKlaviyo.configuration).to receive(:disable_builtin_emails).and_return(false)
+        order = Spree::TestingSupport::OrderWalkthrough.up_to(:payment)
+
+        expect {
+          order.complete!
+        }.to have_enqueued_email(Spree::OrderMailer, 'confirm_email')
+      end
+    end
   end
 
   describe '#canceled_by' do
@@ -52,6 +74,28 @@ RSpec.describe Spree::Order do
         'cancelled_order',
         order: order,
       )
+    end
+
+    context 'when disable_builtin_emails is true' do
+      it 'does not send the cancellation email' do
+        allow(SolidusKlaviyo.configuration).to receive(:disable_builtin_emails).and_return(true)
+        order = create(:completed_order_with_totals)
+
+        expect {
+          order.canceled_by(create(:user))
+        }.not_to have_enqueued_email(Spree::OrderMailer, 'cancel_email')
+      end
+    end
+
+    context 'when disable_builtin_emails is false' do
+      it 'sends the cancellation email' do
+        allow(SolidusKlaviyo.configuration).to receive(:disable_builtin_emails).and_return(false)
+        order = create(:completed_order_with_totals)
+
+        expect {
+          order.canceled_by(create(:user))
+        }.to have_enqueued_email(Spree::OrderMailer, 'cancel_email')
+      end
     end
   end
 end

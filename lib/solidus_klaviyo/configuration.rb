@@ -4,8 +4,12 @@ module SolidusKlaviyo
   class Configuration
     attr_accessor(
       :api_key, :variant_url_builder, :image_url_builder, :default_list,
-      :password_reset_url_builder, :order_url_builder,
+      :password_reset_url_builder, :order_url_builder, :disable_builtin_emails,
     )
+
+    def initialize
+      @disable_builtin_emails = false
+    end
 
     def events
       @events ||= {
