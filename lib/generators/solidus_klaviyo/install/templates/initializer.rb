@@ -29,6 +29,15 @@ SolidusKlaviyo.configure do |config|
     )
   end
 
+  # A proc that accepts an order and returns the URL for tracking the order's status.
+  config.order_url_builder = proc do |order|
+    Spree::Core::Engine.routes.url_helpers.order_url(
+      order,
+      protocol: 'https',
+      host: Spree::Store.default.url,
+    )
+  end
+
   # A Klaviyo list that all users will be subscribed to when they sign up.
   # config.default_list = 'KLAVIYO_LIST_ID'
 

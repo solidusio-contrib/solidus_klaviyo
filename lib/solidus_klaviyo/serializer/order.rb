@@ -19,7 +19,12 @@ module SolidusKlaviyo
           'Items' => order.line_items.map { |line_item| LineItem.serialize(line_item) },
           'BillingAddress' => Address.serialize(order.bill_address),
           'ShippingAddress' => Address.serialize(order.ship_address),
+          'OrderURL' => order_url,
         }
+      end
+
+      def order_url
+        SolidusKlaviyo.configuration.order_url_builder.call(order)
       end
     end
   end

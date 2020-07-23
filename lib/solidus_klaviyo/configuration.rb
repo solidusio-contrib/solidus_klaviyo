@@ -4,7 +4,7 @@ module SolidusKlaviyo
   class Configuration
     attr_accessor(
       :api_key, :variant_url_builder, :image_url_builder, :default_list,
-      :password_reset_url_builder,
+      :password_reset_url_builder, :order_url_builder,
     )
 
     def events
