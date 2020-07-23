@@ -19,6 +19,16 @@ SolidusKlaviyo.configure do |config|
     image&.attachment&.url(:product)
   end
 
+  # A proc that accepts a user and password reset token and returns the URL for completing
+  # the password reset procedure.
+  config.password_reset_url_builder = proc do |_user, token|
+    Spree::Core::Engine.routes.url_helpers.edit_password_url(
+      protocol: 'https',
+      host: Spree::Store.default.url,
+      reset_password_token: token,
+    )
+  end
+
   # A Klaviyo list that all users will be subscribed to when they sign up.
   # config.default_list = 'KLAVIYO_LIST_ID'
 

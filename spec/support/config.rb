@@ -10,6 +10,9 @@ RSpec.configure do |config|
       c.image_url_builder = proc do |variant|
         "https://example.com/products/#{variant.product.slug}.jpg"
       end
+      c.password_reset_url_builder = proc do |_user, token|
+        "https://example.com/reset_password?token=#{token}"
+      end
     end
   end
 end

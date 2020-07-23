@@ -74,6 +74,22 @@ RSpec.describe SolidusKlaviyo::Event::ResetPassword do
         'PasswordResetToken' => 'reset_token',
       )
     end
+
+    it 'includes the password reset URL' do
+      user = build_stubbed(:user)
+      allow(SolidusKlaviyo::Serializer::User).to receive(:serialize)
+        .with(user)
+        .and_return('Full Name' => 'John Doe')
+      allow(SolidusKlaviyo.configuration).to receive(:password_reset_url_builder)
+        .and_return(->(_user, token) { "https://example.com?token=#{token}" })
+
+      event = described_class.new(user: user, token: 'reset_token')
+
+      expect(event.properties).to include(
+        '$event_id' => an_instance_of(String),
+        'PasswordResetURL' => 'https://example.com?token=reset_token',
+      )
+    end
   end
 
   describe '#time' do
