@@ -131,6 +131,28 @@ SolidusKlaviyo::TrackEventJob.perform_later('signed_up', user: user)
 
 *NOTE:* You can follow the same exact pattern to override the built-in events.
 
+### Delivering emails through Klaviyo
+
+If you plan to deliver your transactional emails through [Klaviyo flows](https://help.klaviyo.com/hc/en-us/articles/115002774932-Getting-Started-with-Flows),
+you may want to disable the built-in emails that are delivered by Solidus and solidus_auth_devise.
+
+In order to do that, you can set the `disable_builtin_emails` option in the extension's initializer:
+
+```ruby
+# config/initializers/solidus_klaviyo.rb
+SolidusKlaviyo.configure do |config|
+  config.disable_builtin_emails = true
+end
+```
+
+This will disable the following emails:
+
+- Order confirmation
+- Order cancellation
+- Password reset
+
+You'll have to re-implement the emails with Klaviyo.
+
 ## Development
 
 ### Testing the extension
