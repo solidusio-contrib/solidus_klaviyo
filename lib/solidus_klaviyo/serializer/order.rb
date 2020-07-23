@@ -20,6 +20,14 @@ module SolidusKlaviyo
           'BillingAddress' => Address.serialize(order.bill_address),
           'ShippingAddress' => Address.serialize(order.ship_address),
           'OrderURL' => order_url,
+          'Total' => order.total,
+          'ItemTotal' => order.item_total,
+          'AdjustmentTotal' => order.adjustment_total,
+          'PaymentTotal' => order.payment_total,
+          'ShipmentTotal' => order.shipment_total,
+          'AdditionalTaxTotal' => order.additional_tax_total,
+          'PromoTotal' => order.promo_total,
+          'IncludedTaxTotal' => order.included_tax_total,
         }
       end
 
