@@ -19,7 +19,20 @@ module SolidusKlaviyo
           'Items' => order.line_items.map { |line_item| LineItem.serialize(line_item) },
           'BillingAddress' => Address.serialize(order.bill_address),
           'ShippingAddress' => Address.serialize(order.ship_address),
+          'OrderURL' => order_url,
+          'Total' => order.total,
+          'ItemTotal' => order.item_total,
+          'AdjustmentTotal' => order.adjustment_total,
+          'PaymentTotal' => order.payment_total,
+          'ShipmentTotal' => order.shipment_total,
+          'AdditionalTaxTotal' => order.additional_tax_total,
+          'PromoTotal' => order.promo_total,
+          'IncludedTaxTotal' => order.included_tax_total,
         }
+      end
+
+      def order_url
+        SolidusKlaviyo.configuration.order_url_builder.call(order)
       end
     end
   end
