@@ -12,12 +12,15 @@ module SolidusKlaviyo
 
         if address.respond_to?(:name)
           first_name, last_name = address.name.split(' ', 2)
+          full_name = address.name
         else
           first_name = address.firstname
           last_name = address.lastname
+          full_name = "#{address.first_name} #{address.last_name}"
         end
 
         {
+          'FullName' => full_name,
           'FirstName' => first_name,
           'LastName' => last_name,
           'Company' => address.company,
