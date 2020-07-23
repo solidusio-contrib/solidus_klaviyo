@@ -41,4 +41,17 @@ RSpec.describe Spree::Order do
       end
     end
   end
+
+  describe '#canceled_by' do
+    it 'tracks the Cancelled Order event' do
+      order = create(:completed_order_with_totals)
+
+      order.canceled_by(create(:user))
+
+      expect(SolidusKlaviyo::TrackEventJob).to have_been_enqueued.with(
+        'cancelled_order',
+        order: order,
+      )
+    end
+  end
 end
