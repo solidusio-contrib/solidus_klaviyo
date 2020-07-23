@@ -50,6 +50,7 @@ RSpec.describe Spree::User do
       expect(SolidusKlaviyo::TrackEventJob).to have_been_enqueued.with(
         'reset_password',
         user: user,
+        token: an_instance_of(String),
       )
     end
   end

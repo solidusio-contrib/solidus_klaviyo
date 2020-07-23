@@ -16,6 +16,7 @@ module SolidusKlaviyo
       def properties
         Serializer::User.serialize(user).merge(
           '$event_id' => "#{user.id}-#{user.reset_password_sent_at.to_i}",
+          'PasswordResetToken' => token,
         )
       end
 
@@ -27,6 +28,10 @@ module SolidusKlaviyo
 
       def user
         payload.fetch(:user)
+      end
+
+      def token
+        payload.fetch(:token)
       end
     end
   end

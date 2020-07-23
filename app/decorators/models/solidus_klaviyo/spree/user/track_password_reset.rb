@@ -6,7 +6,7 @@ module SolidusKlaviyo
       module TrackPasswordReset
         def send_reset_password_instructions
           token = super
-          SolidusKlaviyo::TrackEventJob.perform_later 'reset_password', user: self
+          SolidusKlaviyo::TrackEventJob.perform_later 'reset_password', user: self, token: token
           token
         end
       end
