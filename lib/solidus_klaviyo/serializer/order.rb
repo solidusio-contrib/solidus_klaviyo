@@ -28,6 +28,7 @@ module SolidusKlaviyo
           'AdditionalTaxTotal' => order.additional_tax_total,
           'PromoTotal' => order.promo_total,
           'IncludedTaxTotal' => order.included_tax_total,
+          'Shipments' => order.shipments.map(&Shipment.method(:serialize)),
         }
       end
 
