@@ -12,8 +12,9 @@ module SolidusKlaviyo
 
         {
           'Type' => source.class,
+          'CcType' => source.cc_type,
           'Month' => source.month,
-          'Year' => source.cc_type,
+          'Year' => source.year,
           'LastDigits' => source.last_digits,
           'Name' => source.name,
           'Address' => Address.serialize(source.address),
