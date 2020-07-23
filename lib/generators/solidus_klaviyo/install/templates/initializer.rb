@@ -6,7 +6,11 @@ SolidusKlaviyo.configure do |config|
 
   # A proc that accepts a variant and returns the URL of that variant's PDP.
   config.variant_url_builder = proc do |variant|
-    "https://example.com/products/#{variant.product.slug}"
+    Spree::Core::Engine.routes.url_helpers.edit_password_url(
+      variant.product,
+      protocol: 'https',
+      host: Spree::Store.default.url,
+    )
   end
 
   # A proc that accepts a variant and returns the URL of that variant's main image.
