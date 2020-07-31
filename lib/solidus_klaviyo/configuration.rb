@@ -5,6 +5,7 @@ module SolidusKlaviyo
     attr_accessor(
       :api_key, :variant_url_builder, :image_url_builder, :default_list,
       :password_reset_url_builder, :order_url_builder, :disable_builtin_emails,
+      :test_mode,
     )
 
     def initialize

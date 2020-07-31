@@ -48,4 +48,8 @@ SolidusKlaviyo.configure do |config|
   # You can register custom events or override the defaults by manipulating the `events` hash.
   # config.events['my_custom_event'] = MyApp::KlaviyoEvents::MyCustomEvent
   # config.events['placed_order'] = MyApp::KlaviyoEvents::PlacedOrder
+
+  # In test mode, all calls to `#track_now` and `#subscribe_now` are recorded and their
+  # responses are mocked.
+  config.test_mode = false
 end

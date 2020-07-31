@@ -152,6 +152,19 @@ This will disable the following emails:
 
 You'll have to re-implement the emails with Klaviyo.
 
+### Test mode
+
+You can enable test mode to mock all API calls instead of performing them:
+
+```ruby
+# config/initializers/solidus_klaviyo.rb
+SolidusKlaviyo.configure do |config|
+  config.test_mode = true
+end
+```
+
+This spares you the need to use VCR and similar.
+
 ## Development
 
 ### Testing the extension
