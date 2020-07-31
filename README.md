@@ -164,6 +164,30 @@ end
 ```
 
 This spares you the need to use VCR and similar.
+ 
+When in test mode, you can also use our custom RSpec matchers to check if a profile has been
+subscribed or an event has been tracked:
+
+```ruby
+require 'solidus_klaviyo/testing_support/matchers'
+
+RSpec.describe 'My Klaviyo integration' do
+  it 'subscribes users' do
+    SolidusKlaviyo.subscribe_now 'my_list_id', 'jdoe@example.com', full_name: 'John Doe'
+
+    expect(SolidusKlaviyo).to have_subscribed('jdoe@example.com')
+      .to('my_list_id')
+      .with(full_name: 'John Doe')
+  end
+
+  it 'tracks events' do
+    SolidsuKlaviyo.track_now 'custom_event', foo: 'bar'
+
+    expect(SolidusKlaviyo).to have_tracked_event(CustomEvent)
+      .with(foo: 'bar')
+  end
+end
+```
 
 ## Development
 
