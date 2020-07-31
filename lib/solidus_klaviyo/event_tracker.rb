@@ -7,13 +7,18 @@ module SolidusKlaviyo
     end
 
     def track(event)
-      klaviyo.track(
-        event.name,
-        email: event.email,
-        customer_properties: event.customer_properties,
-        properties: event.properties,
-        time: event.time,
-      )
+      if SolidusKlaviyo.configuration.test_mode
+        SolidusKlaviyo.tracked_events << event
+        true
+      else
+        klaviyo.track(
+          event.name,
+          email: event.email,
+          customer_properties: event.customer_properties,
+          properties: event.properties,
+          time: event.time,
+        )
+      end
     end
 
     private

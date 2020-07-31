@@ -28,9 +28,12 @@ require 'solidus_klaviyo/event/reset_password'
 require 'solidus_klaviyo/event/created_account'
 require 'solidus_klaviyo/subscriber'
 require 'solidus_klaviyo/errors'
+require 'solidus_klaviyo/testing_support/test_registry'
 
 module SolidusKlaviyo
   class << self
+    delegate :tracked_events, :subscribed_profiles, to: :test_registry
+
     def configuration
       @configuration ||= Configuration.new
     end
@@ -55,6 +58,12 @@ module SolidusKlaviyo
 
     def subscribe_later(list_id, email, properties = {})
       SubscribeJob.perform_later(list_id, email, properties)
+    end
+
+    private
+
+    def test_registry
+      @test_registry ||= TestingSupport::TestRegistry.new
     end
   end
 end

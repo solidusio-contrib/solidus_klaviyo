@@ -9,19 +9,29 @@ module SolidusKlaviyo
     end
 
     def subscribe(email, properties = {})
-      response = HTTParty.post(
-        "https://a.klaviyo.com/api/v2/list/#{list_id}/subscribe",
-        body: {
-          api_key: SolidusKlaviyo.configuration.api_key,
-          profiles: [properties.merge('email' => email)],
-        }.to_json,
-        headers: {
-          'Content-Type' => 'application/json',
-          'Accept' => 'application/json',
+      if SolidusKlaviyo.configuration.test_mode
+        SolidusKlaviyo.subscribed_profiles << {
+          list_id: list_id,
+          email: email,
+          properties: properties,
         }
-      )
 
-      response.success? || raise(SubscriptionError, response.parsed_response['detail'])
+        true
+      else
+        response = HTTParty.post(
+          "https://a.klaviyo.com/api/v2/list/#{list_id}/subscribe",
+          body: {
+            api_key: SolidusKlaviyo.configuration.api_key,
+            profiles: [properties.merge('email' => email)],
+          }.to_json,
+          headers: {
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+          }
+        )
+
+        response.success? || raise(SubscriptionError, response.parsed_response['detail'])
+      end
     end
   end
 end
