@@ -14,4 +14,61 @@ RSpec.describe SolidusKlaviyo do
       end.to yield_with_args(an_instance_of(SolidusKlaviyo::Configuration))
     end
   end
+
+  describe '.track_now' do
+    context 'when the event is registered' do
+      # rubocop:disable RSpec/MultipleExpectations
+      it 'tracks the event via the event tracker' do
+        event_tracker = instance_spy(SolidusKlaviyo::EventTracker)
+        allow(described_class.configuration).to receive(:event_klass!)
+          .with('custom_event')
+          .and_return(OpenStruct)
+        allow(SolidusKlaviyo::EventTracker).to receive(:new).and_return(event_tracker)
+
+        described_class.track_now('custom_event', payload_key: 'payload_value')
+
+        expect(event_tracker).to have_received(:track) do |event|
+          expect(event).to be_an_instance_of(OpenStruct)
+          expect(event.payload_key).to eq('payload_value')
+        end
+      end
+      # rubocop:enable RSpec/MultipleExpectations
+    end
+
+    context 'when the event is not registered' do
+      it 'bubbles up any errors' do
+        allow(described_class.configuration).to receive(:event_klass!)
+          .with('custom_event')
+          .and_raise(SolidusKlaviyo::UnregisteredEventError.new('custom_event'))
+
+        expect {
+          described_class.track_now('custom_event', foo: 'bar')
+        }.to raise_error(SolidusKlaviyo::UnregisteredEventError, /custom_event/)
+      end
+    end
+  end
+
+  describe '.track_later' do
+    context 'when the event is registered' do
+      it 'enqueues a TrackEventJob' do
+        allow(described_class.configuration).to receive(:event_klass!).with('custom_event')
+
+        described_class.track_later('custom_event', foo: 'bar')
+
+        expect(SolidusKlaviyo::TrackEventJob).to have_been_enqueued.with('custom_event', foo: 'bar')
+      end
+    end
+
+    context 'when the event is not registered' do
+      it 'bubbles up any errors' do
+        allow(described_class.configuration).to receive(:event_klass!)
+          .with('custom_event')
+          .and_raise(SolidusKlaviyo::UnregisteredEventError.new('custom_event'))
+
+        expect {
+          described_class.track_later('custom_event', foo: 'bar')
+        }.to raise_error(SolidusKlaviyo::UnregisteredEventError, /custom_event/)
+      end
+    end
+  end
 end

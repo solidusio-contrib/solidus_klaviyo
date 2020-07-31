@@ -5,13 +5,7 @@ module SolidusKlaviyo
     queue_as :default
 
     def perform(event_name, event_payload = {})
-      event_class = SolidusKlaviyo.configuration.events[event_name]
-      raise ArgumentError, "#{event_name} is not a registered Klaviyo event" unless event_class
-
-      event_tracker = SolidusKlaviyo::EventTracker.new
-      event = event_class.new(event_payload)
-
-      event_tracker.track(event)
+      SolidusKlaviyo.track_now(event_name, event_payload)
     end
   end
 end

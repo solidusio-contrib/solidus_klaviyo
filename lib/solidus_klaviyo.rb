@@ -27,6 +27,7 @@ require 'solidus_klaviyo/event/cancelled_order'
 require 'solidus_klaviyo/event/reset_password'
 require 'solidus_klaviyo/event/created_account'
 require 'solidus_klaviyo/subscriber'
+require 'solidus_klaviyo/errors'
 
 module SolidusKlaviyo
   class << self
@@ -36,6 +37,16 @@ module SolidusKlaviyo
 
     def configure
       yield configuration
+    end
+
+    def track_now(event_name, event_payload = {})
+      event = configuration.event_klass!(event_name).new(event_payload)
+      EventTracker.new.track(event)
+    end
+
+    def track_later(event_name, event_payload = {})
+      configuration.event_klass!(event_name) # validate event name
+      SolidusKlaviyo::TrackEventJob.perform_later(event_name, event_payload)
     end
   end
 end

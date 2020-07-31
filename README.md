@@ -126,7 +126,7 @@ end
 Your custom event is now properly configured! You can track it by enqueuing the `TrackEventJob`:
 
 ```ruby
-SolidusKlaviyo::TrackEventJob.perform_later('signed_up', user: user)
+SolidusKlaviyo.track_later('signed_up', user: user)
 ```
 
 *NOTE:* You can follow the same exact pattern to override the built-in events.
