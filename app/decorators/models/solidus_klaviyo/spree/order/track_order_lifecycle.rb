@@ -14,21 +14,21 @@ module SolidusKlaviyo
         private
 
         def track_started_checkout
-          SolidusKlaviyo::TrackEventJob.perform_later('started_checkout', order: self)
+          SolidusKlaviyo.track_later('started_checkout', order: self)
         end
 
         def track_ordered_product
           line_items.each do |line_item|
-            SolidusKlaviyo::TrackEventJob.perform_later('ordered_product', line_item: line_item)
+            SolidusKlaviyo.track_later('ordered_product', line_item: line_item)
           end
         end
 
         def track_placed_order
-          SolidusKlaviyo::TrackEventJob.perform_later('placed_order', order: self)
+          SolidusKlaviyo.track_later('placed_order', order: self)
         end
 
         def track_cancelled_order
-          SolidusKlaviyo::TrackEventJob.perform_later('cancelled_order', order: self)
+          SolidusKlaviyo.track_later('cancelled_order', order: self)
         end
       end
     end

@@ -11,7 +11,7 @@ module SolidusKlaviyo
         private
 
         def track_signup
-          SolidusKlaviyo::TrackEventJob.perform_later 'created_account', user: self
+          SolidusKlaviyo.track_later 'created_account', user: self
         end
       end
     end

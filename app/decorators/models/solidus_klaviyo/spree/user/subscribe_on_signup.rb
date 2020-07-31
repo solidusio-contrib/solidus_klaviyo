@@ -13,7 +13,7 @@ module SolidusKlaviyo
         def subscribe_to_klaviyo
           return unless SolidusKlaviyo.configuration.default_list
 
-          SolidusKlaviyo::SubscribeJob.perform_later(
+          SolidusKlaviyo.subscribe_later(
             SolidusKlaviyo.configuration.default_list,
             email,
             SolidusKlaviyo::Serializer::User.serialize(self),
