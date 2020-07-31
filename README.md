@@ -31,15 +31,14 @@ If you want to subscribe a user to a Klaviyo list, the extension provides a hand
 that:
 
 ```ruby
-subscriber = SolidusKlaviyo::Subscriber.new('YOUR_LIST_ID')
-subscriber.subscribe('jdoe@example.com') # => true or raises SolidusKlaviyo::Subscriber::SubscriptionError 
+SolidusKlaviyo.subscribe_now('YOUR_LIST_ID', 'jdoe@example.com', custom_property: 'value') 
 ```
 
 We recommend using the built-in background job to subscribe users, in order to avoid blocking your
 web workers and slowing down the customer:
 
 ```ruby
-SolidusKlaviyo::SubscribeJob.perform_later('YOUR_LIST_ID', 'jdoe@example.com')
+SolidusKlaviyo.subscribe_later('YOUR_LIST_ID', 'jdoe@example.com', custom_property: 'value')
 ```
 
 #### Subscribing all users upon signup

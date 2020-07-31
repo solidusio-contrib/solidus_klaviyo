@@ -2,8 +2,6 @@
 
 module SolidusKlaviyo
   class Subscriber
-    class SubscriptionError < RuntimeError; end
-
     attr_reader :list_id
 
     def initialize(list_id)

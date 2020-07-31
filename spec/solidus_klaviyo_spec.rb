@@ -71,4 +71,27 @@ RSpec.describe SolidusKlaviyo do
       end
     end
   end
+
+  describe '.subscribe_now' do
+    it 'subscribes the profile to the given list' do
+      subscriber = instance_spy(SolidusKlaviyo::Subscriber)
+      allow(SolidusKlaviyo::Subscriber).to receive(:new).with('fakeList').and_return(subscriber)
+
+      described_class.subscribe_now('fakeList', 'jdoe@example.com', property: 'value')
+
+      expect(subscriber).to have_received(:subscribe).with('jdoe@example.com', property: 'value')
+    end
+  end
+
+  describe '.subscribe_later' do
+    it 'enqueues a SubscribeJob' do
+      described_class.subscribe_later('fakeList', 'jdoe@example.com', property: 'value')
+
+      expect(SolidusKlaviyo::SubscribeJob).to have_been_enqueued.with(
+        'fakeList',
+        'jdoe@example.com',
+        property: 'value',
+      )
+    end
+  end
 end

@@ -27,7 +27,7 @@ RSpec.describe SolidusKlaviyo::Subscriber do
           email = 'jdoe@example.com'
           expect {
             subscriber.subscribe(email)
-          }.to raise_error(described_class::SubscriptionError)
+          }.to raise_error(SolidusKlaviyo::SubscriptionError)
         end
       end
     end

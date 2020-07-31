@@ -6,4 +6,6 @@ module SolidusKlaviyo
       super("#{event_name} is not a registered Klaviyo event", *args)
     end
   end
+
+  class SubscriptionError < RuntimeError; end
 end

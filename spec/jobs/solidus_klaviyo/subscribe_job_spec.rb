@@ -2,14 +2,15 @@
 
 RSpec.describe SolidusKlaviyo::SubscribeJob do
   it 'subscribes the given email to the given list' do
-    subscriber = instance_spy(SolidusKlaviyo::Subscriber)
-    list_id = 'dummyListId'
-    allow(SolidusKlaviyo::Subscriber).to receive(:new).with(list_id).and_return(subscriber)
+    solidus_klaviyo = class_spy(SolidusKlaviyo)
+    stub_const('SolidusKlaviyo', solidus_klaviyo)
 
-    email = 'jdoe@example.com'
-    properties = { 'first_name' => 'John' }
-    described_class.perform_now(list_id, email, properties)
+    described_class.perform_now('dummyListId', 'jdoe@example.com', first_name: 'John')
 
-    expect(subscriber).to have_received(:subscribe).with(email, properties)
+    expect(solidus_klaviyo).to have_received(:subscribe_now).with(
+      'dummyListId',
+      'jdoe@example.com',
+      first_name: 'John',
+    )
   end
 end

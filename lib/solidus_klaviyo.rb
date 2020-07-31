@@ -48,5 +48,13 @@ module SolidusKlaviyo
       configuration.event_klass!(event_name) # validate event name
       SolidusKlaviyo::TrackEventJob.perform_later(event_name, event_payload)
     end
+
+    def subscribe_now(list_id, email, properties = {})
+      Subscriber.new(list_id).subscribe(email, properties)
+    end
+
+    def subscribe_later(list_id, email, properties = {})
+      SubscribeJob.perform_later(list_id, email, properties)
+    end
   end
 end
