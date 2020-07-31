@@ -21,5 +21,13 @@ module SolidusKlaviyo
         'created_account' => SolidusKlaviyo::Event::CreatedAccount,
       }
     end
+
+    def event_klass(name)
+      events[name.to_s]
+    end
+
+    def event_klass!(name)
+      event_klass(name) || raise(UnregisteredEventError, name)
+    end
   end
 end

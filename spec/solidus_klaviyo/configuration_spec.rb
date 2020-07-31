@@ -12,4 +12,46 @@ RSpec.describe SolidusKlaviyo::Configuration do
 
     expect(configuration.events['custom_event']).to eq(OpenStruct)
   end
+
+  describe '#event_klass' do
+    context 'when the event is registered' do
+      it 'returns the class for the event' do
+        configuration = described_class.new
+
+        configuration.events['custom_event'] = OpenStruct
+
+        expect(configuration.event_klass(:custom_event)).to eq(OpenStruct)
+      end
+    end
+
+    context 'when the event is not registered' do
+      it 'returns nil' do
+        configuration = described_class.new
+
+        expect(configuration.event_klass(:custom_event)).to be_nil
+      end
+    end
+  end
+
+  describe '#event_klass!' do
+    context 'when the event is registered' do
+      it 'returns the class for the event' do
+        configuration = described_class.new
+
+        configuration.events['custom_event'] = OpenStruct
+
+        expect(configuration.event_klass!(:custom_event)).to eq(OpenStruct)
+      end
+    end
+
+    context 'when the event is not registered' do
+      it 'raises an UnregisteredEventError' do
+        configuration = described_class.new
+
+        expect {
+          configuration.event_klass!(:custom_event)
+        }.to raise_error(SolidusKlaviyo::UnregisteredEventError)
+      end
+    end
+  end
 end
