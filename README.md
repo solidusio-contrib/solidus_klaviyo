@@ -1,6 +1,6 @@
 # solidus_klaviyo
 
-[![CircleCI](https://circleci.com/gh/nebulab/solidus_klaviyo.svg?style=svg)](https://circleci.com/gh/nebulab/solidus_klaviyo)
+[![CircleCI](https://circleci.com/gh/solidusio-contrib/solidus_klaviyo.svg?style=svg)](https://circleci.com/gh/solidusio-contrib/solidus_klaviyo)
 
 This extension allows you to integrate your [Solidus](https://solidus.io) store with
 [Klaviyo](https://klaviyo.com).

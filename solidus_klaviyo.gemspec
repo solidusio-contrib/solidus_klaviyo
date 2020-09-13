@@ -9,12 +9,12 @@ Gem::Specification.new do |spec|
   spec.email = 'desa.alessandro@gmail.com'
 
   spec.summary = 'Klaviyo integration for Solidus stores.'
-  spec.homepage = 'https://github.com/nebulab/solidus_klaviyo'
+  spec.homepage = 'https://github.com/solidusio-contrib/solidus_klaviyo'
   spec.license = 'BSD-3-Clause'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/nebulab/solidus_klaviyo'
-  spec.metadata['changelog_uri'] = 'https://github.com/nebulab/solidus_klaviyo/releases'
+  spec.metadata['source_code_uri'] = 'https://github.com/solidusio-contrib/solidus_klaviyo'
+  spec.metadata['changelog_uri'] = 'https://github.com/solidusio-contrib/solidus_klaviyo/releases'
 
   spec.required_ruby_version = Gem::Requirement.new('~> 2.5')
 
