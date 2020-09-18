@@ -3,14 +3,15 @@
 [![CircleCI](https://circleci.com/gh/solidusio-contrib/solidus_klaviyo.svg?style=svg)](https://circleci.com/gh/solidusio-contrib/solidus_klaviyo)
 
 This extension allows you to integrate your [Solidus](https://solidus.io) store with
-[Klaviyo](https://klaviyo.com).
+[Klaviyo](https://klaviyo.com) via [solidus_tracking](https://github.com/solidusio-contrib/solidus_tracking).
 
 ## Installation
 
-Add solidus_klaviyo to your Gemfile:
+Add solidus_tracking and solidus_klaviyo to your Gemfile:
 
 ```ruby
-gem 'solidus_klaviyo'
+gem 'solidus_tracking', github: 'solidusio-contrib/solidus_tracking'
+gem 'solidus_klaviyo', github: 'solidusio-contrib/solidus_klaviyo'
 ```
 
 Bundle your dependencies and run the installation generator:
@@ -23,7 +24,21 @@ $ bundle exec rails g solidus_klaviyo:install
 The generator will create an initializer at `config/initializers/solidus_klaviyo.rb` with the
 default configuration. Take a look at the file and customize it to fit your environment.
 
+
 ## Usage
+
+### Tracking standard events
+
+In order to track all standard events in Klaviyo, add the following to your
+[solidus_tracking](https://github.com/solidusio-contrib/solidus_tracking) configuration:
+
+```ruby
+SolidusTracking.configure do |config|
+  config.trackers << SolidusKlaviyo::Tracker.from_config
+end
+```
+
+That's it! Your events will be automatically sent to Klaviyo.
 
 ### Subscribing users to lists
 
@@ -56,138 +71,6 @@ end
 
 Now, all users will be subscribed to the configured list automatically when their account is
 created.
-
-### Tracking events
-
-The extension will send the following events to Klaviyo:
-
-- `Started Checkout`: when an order transitions from the `cart` state to `address`.
-- `Placed Order`: when an order is finalized.
-- `Ordered Product`: for each item in a finalized order.
-- `Cancelled Order`: when an order is cancelled.
-- `Created Account`: when a user is created.
-- `Reset Password`: when a user requests a password reset.
-
-For the full payload of these events, look at the source code of the serializers and events.
-
-#### Implementing custom events
-
-If you have custom events you want to track with this gem, you can easily do so by creating a new
-event class and implementing the required methods:
-
-```ruby
-module MyApp
-  module KlaviyoEvents
-    class SubscribedToNewsletter < SolidusKlaviyo::Event::Base
-      def name
-        'SubscribedToNewsletter'
-      end
-
-      def email
-        user.email
-      end
-
-      def customer_properties
-        SolidusKlaviyo::Serializer::Customer.serialize(user)
-      end
-
-      def properties
-        {
-          '$event_id' => user.id.to_s,
-          '...' => '...',
-        }
-      end
-
-      def time
-        Time.zone.now
-      end
-
-      private
-
-      def user
-        payload.fetch(:user)
-      end
-    end 
-  end 
-end
-```
-
-Once you have created the class, the next step is to register your custom event when initializing
-the extension:
-
-```ruby
-# config/initializers/solidus_klaviyo.rb
-SolidusKlaviyo.configure do |config|
-  config.events['subscribed_to_newsletter'] = MyApp::KlaviyoEvents::SubscribedToNewsletter
-end
-```
-
-Your custom event is now properly configured! You can track it by enqueuing the `TrackEventJob`:
-
-```ruby
-SolidusKlaviyo.track_later('signed_up', user: user)
-```
-
-*NOTE:* You can follow the same exact pattern to override the built-in events.
-
-### Delivering emails through Klaviyo
-
-If you plan to deliver your transactional emails through [Klaviyo flows](https://help.klaviyo.com/hc/en-us/articles/115002774932-Getting-Started-with-Flows),
-you may want to disable the built-in emails that are delivered by Solidus and solidus_auth_devise.
-
-In order to do that, you can set the `disable_builtin_emails` option in the extension's initializer:
-
-```ruby
-# config/initializers/solidus_klaviyo.rb
-SolidusKlaviyo.configure do |config|
-  config.disable_builtin_emails = true
-end
-```
-
-This will disable the following emails:
-
-- Order confirmation
-- Order cancellation
-- Password reset
-
-You'll have to re-implement the emails with Klaviyo.
-
-### Test mode
-
-You can enable test mode to mock all API calls instead of performing them:
-
-```ruby
-# config/initializers/solidus_klaviyo.rb
-SolidusKlaviyo.configure do |config|
-  config.test_mode = true
-end
-```
-
-This spares you the need to use VCR and similar.
- 
-When in test mode, you can also use our custom RSpec matchers to check if a profile has been
-subscribed or an event has been tracked:
-
-```ruby
-require 'solidus_klaviyo/testing_support/matchers'
-
-RSpec.describe 'My Klaviyo integration' do
-  it 'subscribes users' do
-    SolidusKlaviyo.subscribe_now 'my_list_id', 'jdoe@example.com', full_name: 'John Doe'
-
-    expect(SolidusKlaviyo).to have_subscribed('jdoe@example.com')
-      .to('my_list_id')
-      .with(full_name: 'John Doe')
-  end
-
-  it 'tracks events' do
-    SolidsuKlaviyo.track_now 'custom_event', foo: 'bar'
-
-    expect(SolidusKlaviyo).to have_tracked_event(CustomEvent)
-      .with(foo: 'bar')
-  end
-end
-```
 
 ## Development
 

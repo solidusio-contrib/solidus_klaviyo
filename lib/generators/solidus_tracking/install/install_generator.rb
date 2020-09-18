@@ -6,7 +6,7 @@ module SolidusKlaviyo
       source_root File.expand_path('templates', __dir__)
 
       def copy_initializer
-        template 'initializer.rb', 'config/initializers/solidus_klaviyo.rb'
+        template 'initializer.rb', 'config/initializers/solidus_tracking.rb'
       end
     end
   end
