@@ -24,11 +24,17 @@ module SolidusKlaviyo
     end
 
     def subscribe_now(list_id, email, properties = {})
-      Subscriber.new(api_key: configuration.api_key).subscribe(list_id, email, properties)
+      subscriber.subscribe(list_id, email, properties)
     end
 
     def subscribe_later(list_id, email, properties = {})
-      SubscribeJob.perform_later(list_id, email, properties)
+      SolidusKlaviyo::SubscribeJob.perform_later(list_id, email, properties)
+    end
+
+    private
+
+    def subscriber
+      @subscriber ||= SolidusKlaviyo::Subscriber.new(api_key: configuration.api_key)
     end
   end
 end
