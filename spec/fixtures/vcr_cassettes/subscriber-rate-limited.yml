@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://a.klaviyo.com/api/v2/list/dummyListId/subscribe
+    body:
+      encoding: UTF-8
+      string: '{"api_key":"secret123","profiles":[{"email":"jdoe@example.com"}]}'
+    headers:
+      Content-Type:
+        - application/json
+      Accept:
+        - application/json
+      Accept-Encoding:
+        - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+        - Ruby
+  response:
+    status:
+      code: 429
+      message: Too Many Requests
+    headers:
+      Allow:
+        - GET, POST, DELETE, HEAD, OPTIONS
+      Content-Type:
+        - application/json
+      Date:
+        - Wed, 22 Jul 2020 13:40:48 GMT
+      Server:
+        - nginx
+      Vary:
+        - Accept-Encoding
+        - Cookie
+      X-Upstream:
+        - Sync-Api
+        - Sync-Api
+      Content-Length:
+        - '22'
+      Connection:
+        - keep-alive
+      retry-after:
+        60
+    body:
+      encoding: ASCII-8BIT
+      string: '{"detail":""}'
+  recorded_at: Fri, 13 Nov 2020 11:01:00 GMT
+recorded_with: VCR 6.0.0

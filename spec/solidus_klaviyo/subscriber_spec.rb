@@ -28,17 +28,31 @@ RSpec.describe SolidusKlaviyo::Subscriber do
       end
     end
 
+    context 'when the request is rate-limited' do
+      it 'raises a RateLimitedError' do
+        subscriber = described_class.new(api_key: 'test_key')
+        list_id = 'dummyListId'
+        email = 'jdoe@example.com'
+
+        expect {
+          VCR.use_cassette('subscriber-rate-limited') do
+            subscriber.subscribe(list_id, email)
+          end
+        }.to raise_error(SolidusKlaviyo::RateLimitedError)
+      end
+    end
+
     context 'when the request is malformed' do
       it 'raises a SubscriptionError' do
         subscriber = described_class.new(api_key: 'test_key')
         list_id = 'wrongListId'
         email = 'jdoe@example.com'
 
-        VCR.use_cassette('subscriber') do
-          expect {
+        expect {
+          VCR.use_cassette('subscriber') do
             subscriber.subscribe(list_id, email)
-          }.to raise_error(SolidusKlaviyo::SubscriptionError)
-        end
+          end
+        }.to raise_error(SolidusKlaviyo::SubscriptionError)
       end
     end
   end

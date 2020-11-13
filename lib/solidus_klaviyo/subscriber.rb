@@ -27,7 +27,16 @@ module SolidusKlaviyo
         }
       )
 
-      response.success? || raise(SubscriptionError, response.parsed_response['detail'])
+      unless response.success?
+        case response.code
+        when 429
+          raise(RateLimitedError, response)
+        else
+          raise(SubscriptionError, response)
+        end
+      end
+
+      response
     end
   end
 end
