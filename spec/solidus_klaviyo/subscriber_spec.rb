@@ -52,7 +52,6 @@ RSpec.describe SolidusKlaviyo::Subscriber do
           VCR.use_cassette('subscriber') do
             subscriber.subscribe(list_id, email)
           end
-
         }.to raise_error(SolidusKlaviyo::SubscriptionError)
       end
     end
