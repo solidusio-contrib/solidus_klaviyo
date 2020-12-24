@@ -31,6 +31,14 @@ module SolidusKlaviyo
       SolidusKlaviyo::SubscribeJob.perform_later(list_id, email, properties)
     end
 
+    def update_now(list_id, email, properties = {})
+      subscriber.update(list_id, email, properties)
+    end
+
+    def update_later(list_id, email, properties = {})
+      SolidusKlaviyo::UpdateJob.perform_later(list_id, email, properties)
+    end
+
     private
 
     def subscriber
