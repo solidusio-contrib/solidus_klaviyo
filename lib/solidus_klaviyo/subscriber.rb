@@ -15,8 +15,18 @@ module SolidusKlaviyo
     end
 
     def subscribe(list_id, email, properties = {})
+      request(list_id, email, properties, "subscribe")
+    end
+
+    def update(list_id, email, properties = {})
+      request(list_id, email, properties, "members")
+    end
+
+    private
+
+    def request(list_id, email, properties, object)
       response = HTTParty.post(
-        "https://a.klaviyo.com/api/v2/list/#{list_id}/subscribe",
+        "https://a.klaviyo.com/api/v2/list/#{list_id}/#{object}",
         body: {
           api_key: api_key,
           profiles: [properties.merge('email' => email)],

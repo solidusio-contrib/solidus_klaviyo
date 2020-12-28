@@ -72,6 +72,21 @@ end
 Now, all users will be subscribed to the configured list automatically when their account is
 created.
 
+### Updating users on your lists
+
+Updating an existing user on a list is just as easy as adding them.
+
+```ruby
+SolidusKlaviyo.update_now('YOUR_LIST_ID', 'jdoe@example.com', custom_property: 'value') 
+```
+
+Just like with subscribing, we recommend using the built-in background job to update users,
+in order to avoid blocking your web workers and slowing down the customer:
+
+```ruby
+SolidusKlaviyo.update_later('YOUR_LIST_ID', 'jdoe@example.com', custom_property: 'value')
+```
+
 ## Development
 
 ### Testing the extension

@@ -1,0 +1,79 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://a.klaviyo.com/api/v2/list/dummyListId/members
+    body:
+      encoding: UTF-8
+      string: '{"api_key":"secret123","profiles":[{"email":"jdoe@example.com"}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Dec 2020 22:37:33 GMT
+      Server:
+      - nginx
+      Vary:
+      - Cookie
+      Content-Length:
+      - '76'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"api_key":"secret123","profiles":[{"email":"jdoe@example.com"}]}'
+  recorded_at: Thu, 24 Dec 2020 22:37:33 GMT
+- request:
+    method: post
+    uri: https://a.klaviyo.com/api/v2/list/wrongListId/members
+    body:
+      encoding: UTF-8
+      string: '{"api_key":"secret123","profiles":[{"email":"jdoe@example.com"}]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Allow:
+      - GET, POST, DELETE, HEAD, OPTIONS
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 24 Dec 2020 22:38:12 GMT
+      Server:
+      - nginx
+      Vary:
+      - Cookie
+      Content-Length:
+      - '40'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"detail":"List wrongListId does not exist."}'
+  recorded_at: Thu, 24 Dec 2020 22:38:12 GMT
+recorded_with: VCR 6.0.0

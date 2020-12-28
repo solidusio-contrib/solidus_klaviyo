@@ -56,4 +56,50 @@ RSpec.describe SolidusKlaviyo::Subscriber do
       end
     end
   end
+
+  describe '#update' do
+    context 'when the request is well-formed' do
+      it 'updates the given email on the configured list' do
+        subscriber = described_class.new(api_key: 'test_key')
+        list_id = 'dummyListId'
+        email = 'jdoe@example.com'
+
+        VCR.use_cassette('update') do
+          subscriber.update(list_id, email)
+        end
+
+        expect(
+          a_request(:post, "https://a.klaviyo.com/api/v2/list/#{list_id}/members")
+        ).to have_been_made
+      end
+    end
+
+    context 'when the request is rate-limited' do
+      it 'raises a RateLimitedError' do
+        subscriber = described_class.new(api_key: 'test_key')
+        list_id = 'dummyListId'
+        email = 'jdoe@example.com'
+
+        expect {
+          VCR.use_cassette('update-rate-limited') do
+            subscriber.update(list_id, email)
+          end
+        }.to raise_error(SolidusKlaviyo::RateLimitedError)
+      end
+    end
+
+    context 'when the request is malformed' do
+      it 'raises a SubscriptionError' do
+        subscriber = described_class.new(api_key: 'test_key')
+        list_id = 'wrongListId'
+        email = 'jdoe@example.com'
+
+        expect {
+          VCR.use_cassette('update') do
+            subscriber.update(list_id, email)
+          end
+        }.to raise_error(SolidusKlaviyo::SubscriptionError)
+      end
+    end
+  end
 end
