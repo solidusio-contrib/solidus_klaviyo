@@ -24,6 +24,10 @@ module SolidusKlaviyo
       request(list_id, profiles, "members")
     end
 
+    def bulk_update(list_id, profiles)
+      request(list_id, profiles, "members")
+    end
+
     private
 
     def request(list_id, profiles, object)
