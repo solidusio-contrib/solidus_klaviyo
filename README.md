@@ -87,6 +87,14 @@ in order to avoid blocking your web workers and slowing down the customer:
 SolidusKlaviyo.update_later('YOUR_LIST_ID', 'jdoe@example.com', custom_property: 'value')
 ```
 
+Updating in bulk is also possible using the `bulk_update_now` and `bulk_update_later` methods.
+For bulk updates, you'll want to provide the emails and custom properties in a single object,
+like so:
+
+```ruby
+SolidusKlaviyo.bulk_update_later('YOUR_LIST_ID', [{email: 'jdoe@example.com', custom_property: 'value'}])
+```
+
 ## Development
 
 ### Testing the extension
