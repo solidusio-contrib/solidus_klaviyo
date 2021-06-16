@@ -28,12 +28,12 @@ Gem::Specification.new do |spec|
   spec.executables = files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 3']
-  spec.add_dependency 'solidus_support', '~> 0.5'
+  spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 4']
+  spec.add_dependency 'solidus_support', '~> 0.8'
 
   spec.add_dependency 'httparty', '~> 0.18'
   spec.add_dependency 'klaviyo', '~> 1.0'
-  spec.add_dependency 'solidus_tracking', '~> 0.0'
+  spec.add_dependency 'solidus_tracking'
 
   spec.add_development_dependency 'solidus_dev_support'
   spec.add_development_dependency 'vcr'

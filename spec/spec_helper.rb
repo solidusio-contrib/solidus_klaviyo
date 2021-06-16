@@ -18,8 +18,10 @@ require 'solidus_dev_support/rspec/feature_helper'
 # in spec/support/ and its subdirectories.
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].sort.each { |f| require f }
 
-# Requires factories defined in lib/solidus_klaviyo/factories.rb
-require 'solidus_klaviyo/factories'
+# Will load Solidus core factory first and then the ones
+# defined in `lib/solidus_klaviyo/testing_support/factories.rb`.
+# and `lib/solidus_klaviyo/testing_support/factories`.
+SolidusDevSupport::TestingSupport::Factories.load_for(SolidusKlaviyo::Engine)
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
